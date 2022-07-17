@@ -1,0 +1,92 @@
+import type { EnhancerNext, Store, SetState } from '../type';
+import { isFunction } from '../utils';
+
+export type Ext<S> = {
+  getState: () => S;
+};
+
+export function connect<State, PreExt, State1, FinalState = State1>(
+  store1: Store<State1>,
+  mapStateToState?: (state1: State1) => FinalState
+): EnhancerNext<State, PreExt, Ext<State & FinalState>>;
+
+export function connect<
+  State,
+  PreExt,
+  State1,
+  State2,
+  FinalState = State1 & State2
+>(
+  store1: Store<State1>,
+  store2: Store<State2>,
+  mapStateToState?: (state1: State1, state2: State2) => FinalState
+): EnhancerNext<State, PreExt, Ext<State & FinalState>>;
+
+export function connect<
+  State,
+  PreExt,
+  State1,
+  State2,
+  State3,
+  FinalState = State1 & State2 & State3
+>(
+  store1: Store<State1>,
+  store2: Store<State2>,
+  store3: Store<State3>,
+  mapStateToState?: (
+    state1: State1,
+    state2: State2,
+    state3: State3
+  ) => FinalState
+): EnhancerNext<State, PreExt, Ext<State & FinalState>>;
+
+export function connect<State, PreExt>(
+  ...args: any[]
+): EnhancerNext<State, PreExt, Ext<State>> {
+  const lastParam = args[args.length - 1];
+
+  let combine: (...args: object[]) => object = Object.assign;
+  const externalStores: Store<any>[] = args.slice(0, -1);
+
+  if (isFunction(lastParam)) {
+    combine = lastParam;
+  } else {
+    externalStores.push(lastParam);
+  }
+
+  return (createStore) => (initialState) => {
+    const store = createStore(initialState);
+
+    // 获取外部store的状态
+    const getExternalState = () => {
+      const externalStates = externalStores.map((store) => store.getState());
+      return combine(...externalStates);
+    };
+
+    // 获取所有store的状态
+    const getState = () => ({ ...store.getState(), ...getExternalState() });
+
+    // 设置当前store的状态，并同步外部store的状态
+    const setState: SetState<State> = (update) => {
+      const curState = isFunction(update) ? update(store.getState()) : update;
+      store.setState({ ...curState, ...getExternalState() });
+    };
+
+    // 外部store的状态更新时，同步到当前store
+    const unSubs = externalStores.map((externalStore) =>
+      externalStore.subscribe(() => {
+        store.setState(getState);
+      })
+    );
+
+    return {
+      ...store,
+      setState,
+      getState,
+      destroy: () => {
+        unSubs.forEach((unSub) => unSub());
+        store.destroy();
+      },
+    };
+  };
+}
