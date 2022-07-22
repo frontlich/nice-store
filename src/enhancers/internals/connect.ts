@@ -1,5 +1,5 @@
-import type { EnhancerNext, Store, SetState } from '../type';
-import { isFunction } from '../utils';
+import type { NextEnhancer, Store, SetState } from '../../type';
+import { isFunction } from '../../utils';
 
 export type Ext<S> = {
   getState: () => S;
@@ -8,7 +8,7 @@ export type Ext<S> = {
 export function connect<State, PreExt, State1, FinalState = State1>(
   store1: Store<State1>,
   mapStateToState?: (state1: State1) => FinalState
-): EnhancerNext<State, PreExt, Ext<State & FinalState>>;
+): NextEnhancer<State, PreExt, Ext<State & FinalState>>;
 
 export function connect<
   State,
@@ -20,7 +20,7 @@ export function connect<
   store1: Store<State1>,
   store2: Store<State2>,
   mapStateToState?: (state1: State1, state2: State2) => FinalState
-): EnhancerNext<State, PreExt, Ext<State & FinalState>>;
+): NextEnhancer<State, PreExt, Ext<State & FinalState>>;
 
 export function connect<
   State,
@@ -38,11 +38,32 @@ export function connect<
     state2: State2,
     state3: State3
   ) => FinalState
-): EnhancerNext<State, PreExt, Ext<State & FinalState>>;
+): NextEnhancer<State, PreExt, Ext<State & FinalState>>;
+
+export function connect<
+  State,
+  PreExt,
+  State1,
+  State2,
+  State3,
+  State4,
+  FinalState = State1 & State2 & State3 & State4
+>(
+  store1: Store<State1>,
+  store2: Store<State2>,
+  store3: Store<State3>,
+  store4: Store<State4>,
+  mapStateToState?: (
+    state1: State1,
+    state2: State2,
+    state3: State3,
+    state4: State4
+  ) => FinalState
+): NextEnhancer<State, PreExt, Ext<State & FinalState>>;
 
 export function connect<State, PreExt>(
   ...args: any[]
-): EnhancerNext<State, PreExt, Ext<State>> {
+): NextEnhancer<State, PreExt, Ext<State>> {
   const lastParam = args[args.length - 1];
 
   let combine: (...args: object[]) => object = Object.assign;

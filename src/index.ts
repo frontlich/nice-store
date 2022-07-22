@@ -1,6 +1,9 @@
+import { create } from './react';
+
 export * from './type';
-export * from './enhancers';
+export * from './enhancers/internals';
 export { shallowEqual } from './utils';
 export { createCoreStore } from './createCoreStore';
 export { createStore } from './createStore';
-export { withStore, create as default } from './react';
+export { create };
+export default create;

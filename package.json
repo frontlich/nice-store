@@ -61,5 +61,13 @@
   "dependencies": {
     "react": ">=16.8",
     "use-sync-external-store": "^1.2.0"
+  },
+  "peerDependencies": {
+    "rxjs": ">=6"
+  },
+  "peerDependenciesMeta": {
+    "rxjs": {
+      "optional": true
+    }
   }
 }

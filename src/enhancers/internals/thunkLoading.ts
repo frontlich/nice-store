@@ -1,8 +1,8 @@
 import { useLayoutEffect, useState } from 'react';
-import { createCoreStore } from '../createCoreStore';
 
-import type { EnhancerNext } from '../type';
-import { isFunction } from '../utils';
+import { createCoreStore } from '../../createCoreStore';
+import { checkStore, isFunction } from '../../utils';
+import type { NextEnhancer } from '../../type';
 import type { Ext as ThunkExt } from './thunk';
 
 type Ext = {
@@ -14,10 +14,14 @@ export const thunkLoading =
     State,
     Return extends Promise<unknown>,
     PreExt extends ThunkExt<Return>
-  >(): EnhancerNext<State, PreExt, Ext> =>
+  >(): NextEnhancer<State, PreExt, Ext> =>
   (createStore) =>
   (initialState) => {
     const store = createStore(initialState);
+
+    if (process.env.NODE_ENV !== 'production') {
+      checkStore(store, 'thunkLoading', 'useLoading');
+    }
 
     if (process.env.NODE_ENV !== 'production' && !isFunction(store.run)) {
       throw new Error('thunkLoading enhancer must use after thunk enhancer');

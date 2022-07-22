@@ -1,49 +1,28 @@
-import { useDebugValue } from 'react';
-import { useSyncExternalStoreWithSelector } from 'use-sync-external-store/shim/with-selector';
-
 import { createStore } from './createStore';
-import { defaultSelector, shallowEqual } from './utils';
+import { selectorHook } from './enhancers/internals/selectorHook';
 import type {
-  Selector,
-  UseStore,
   Store,
   Enhancer,
   EnhancedStore,
-  EnhancerNext,
+  NextEnhancer,
+  Selector,
 } from './type';
 
 type ExtractState<T> = T extends { getState: () => infer S } ? S : never;
 
-type Result<S, E = {}> = [
-  UseStore<ExtractState<EnhancedStore<S, E>>>,
-  EnhancedStore<S, E>
-];
+type UseSelectorExt<State, Ext = {}> = {
+  useSelector: <Slice = State>(
+    selector?: Selector<ExtractState<EnhancedStore<State, Ext>>, Slice>,
+    isEqual?: (pre: Slice, cur: Slice) => boolean
+  ) => Slice;
+};
 
-export function withStore<S extends Store<any>>(store: S) {
-  const useStore = <Slice>(
-    selector: Selector<ExtractState<S>, Slice> = defaultSelector,
-    isEqual: (pre: Slice, cur: Slice) => boolean = shallowEqual
-  ) => {
-    const slice = useSyncExternalStoreWithSelector(
-      store.subscribe,
-      store.getState,
-      null,
-      selector,
-      isEqual
-    );
+type Result<State, Ext = {}> = EnhancedStore<
+  State,
+  UseSelectorExt<State, Ext> & Ext
+>;
 
-    useDebugValue(slice);
-
-    return slice;
-  };
-
-  return useStore;
-}
-
-export function create<State>(): [
-  UseStore<State | undefined>,
-  Store<State | undefined>
-];
+export function create<State>(): Store<State | undefined>;
 
 export function create<State>(initialState: State): Result<State>;
 
@@ -55,59 +34,79 @@ export function create<State, Ext>(
 export function create<State, Ext1, Ext2>(
   initialState: State,
   enhancer: Enhancer<State, Ext1>,
-  enhancer2: EnhancerNext<State, Ext1, Ext2>
+  enhancer2: NextEnhancer<State, Ext1, Ext2>
 ): Result<State, Ext1 & Ext2>;
 
 export function create<State, Ext1, Ext2, Ext3>(
   initialState: State,
   enhancer: Enhancer<State, Ext1>,
-  enhancer2: EnhancerNext<State, Ext1, Ext2>,
-  enhancer3: EnhancerNext<State, Ext1 & Ext2, Ext3>
+  enhancer2: NextEnhancer<State, Ext1, Ext2>,
+  enhancer3: NextEnhancer<State, Ext1 & Ext2, Ext3>
 ): Result<State, Ext1 & Ext2 & Ext3>;
 
 export function create<State, Ext1, Ext2, Ext3, Ext4>(
   initialState: State,
   enhancer: Enhancer<State, Ext1>,
-  enhancer2: EnhancerNext<State, Ext1, Ext2>,
-  enhancer3: EnhancerNext<State, Ext1 & Ext2, Ext3>,
-  enhancer4: EnhancerNext<State, Ext1 & Ext2 & Ext3, Ext4>
+  enhancer2: NextEnhancer<State, Ext1, Ext2>,
+  enhancer3: NextEnhancer<State, Ext1 & Ext2, Ext3>,
+  enhancer4: NextEnhancer<State, Ext1 & Ext2 & Ext3, Ext4>
 ): Result<State, Ext1 & Ext2 & Ext3 & Ext4>;
 
 export function create<State, Ext1, Ext2, Ext3, Ext4, Ext5>(
   initialState: State,
   enhancer: Enhancer<State, Ext1>,
-  enhancer2: EnhancerNext<State, Ext1, Ext2>,
-  enhancer3: EnhancerNext<State, Ext1 & Ext2, Ext3>,
-  enhancer4: EnhancerNext<State, Ext1 & Ext2 & Ext3, Ext4>,
-  enhancer5: EnhancerNext<State, Ext1 & Ext2 & Ext3 & Ext4, Ext5>
+  enhancer2: NextEnhancer<State, Ext1, Ext2>,
+  enhancer3: NextEnhancer<State, Ext1 & Ext2, Ext3>,
+  enhancer4: NextEnhancer<State, Ext1 & Ext2 & Ext3, Ext4>,
+  enhancer5: NextEnhancer<State, Ext1 & Ext2 & Ext3 & Ext4, Ext5>
 ): Result<State, Ext1 & Ext2 & Ext3 & Ext4 & Ext5>;
 
 export function create<State, Ext1, Ext2, Ext3, Ext4, Ext5, Ext6>(
   initialState: State,
   enhancer: Enhancer<State, Ext1>,
-  enhancer2: EnhancerNext<State, Ext1, Ext2>,
-  enhancer3: EnhancerNext<State, Ext1 & Ext2, Ext3>,
-  enhancer4: EnhancerNext<State, Ext1 & Ext2 & Ext3, Ext4>,
-  enhancer5: EnhancerNext<State, Ext1 & Ext2 & Ext3 & Ext4, Ext5>,
-  enhancer6: EnhancerNext<State, Ext1 & Ext2 & Ext3 & Ext4 & Ext5, Ext6>
+  enhancer2: NextEnhancer<State, Ext1, Ext2>,
+  enhancer3: NextEnhancer<State, Ext1 & Ext2, Ext3>,
+  enhancer4: NextEnhancer<State, Ext1 & Ext2 & Ext3, Ext4>,
+  enhancer5: NextEnhancer<State, Ext1 & Ext2 & Ext3 & Ext4, Ext5>,
+  enhancer6: NextEnhancer<State, Ext1 & Ext2 & Ext3 & Ext4 & Ext5, Ext6>
 ): Result<State, Ext1 & Ext2 & Ext3 & Ext4 & Ext5 & Ext6>;
 
 export function create<State, Ext1, Ext2, Ext3, Ext4, Ext5, Ext6, Ext7>(
   initialState: State,
   enhancer: Enhancer<State, Ext1>,
-  enhancer2: EnhancerNext<State, Ext1, Ext2>,
-  enhancer3: EnhancerNext<State, Ext1 & Ext2, Ext3>,
-  enhancer4: EnhancerNext<State, Ext1 & Ext2 & Ext3, Ext4>,
-  enhancer5: EnhancerNext<State, Ext1 & Ext2 & Ext3 & Ext4, Ext5>,
-  enhancer6: EnhancerNext<State, Ext1 & Ext2 & Ext3 & Ext4 & Ext5, Ext6>,
-  enhancer7: EnhancerNext<State, Ext1 & Ext2 & Ext3 & Ext4 & Ext5 & Ext6, Ext7>
+  enhancer2: NextEnhancer<State, Ext1, Ext2>,
+  enhancer3: NextEnhancer<State, Ext1 & Ext2, Ext3>,
+  enhancer4: NextEnhancer<State, Ext1 & Ext2 & Ext3, Ext4>,
+  enhancer5: NextEnhancer<State, Ext1 & Ext2 & Ext3 & Ext4, Ext5>,
+  enhancer6: NextEnhancer<State, Ext1 & Ext2 & Ext3 & Ext4 & Ext5, Ext6>,
+  enhancer7: NextEnhancer<State, Ext1 & Ext2 & Ext3 & Ext4 & Ext5 & Ext6, Ext7>
 ): Result<State, Ext1 & Ext2 & Ext3 & Ext4 & Ext5 & Ext6 & Ext7>;
+
+export function create<State, Ext1, Ext2, Ext3, Ext4, Ext5, Ext6, Ext7, Ext8>(
+  initialState: State,
+  enhancer: Enhancer<State, Ext1>,
+  enhancer2: NextEnhancer<State, Ext1, Ext2>,
+  enhancer3: NextEnhancer<State, Ext1 & Ext2, Ext3>,
+  enhancer4: NextEnhancer<State, Ext1 & Ext2 & Ext3, Ext4>,
+  enhancer5: NextEnhancer<State, Ext1 & Ext2 & Ext3 & Ext4, Ext5>,
+  enhancer6: NextEnhancer<State, Ext1 & Ext2 & Ext3 & Ext4 & Ext5, Ext6>,
+  enhancer7: NextEnhancer<State, Ext1 & Ext2 & Ext3 & Ext4 & Ext5 & Ext6, Ext7>,
+  enhancer8: NextEnhancer<
+    State,
+    Ext1 & Ext2 & Ext3 & Ext4 & Ext5 & Ext6 & Ext7,
+    Ext8
+  >
+): Result<State, Ext1 & Ext2 & Ext3 & Ext4 & Ext5 & Ext6 & Ext7 & Ext8>;
 
 export function create<State>(
   initialState?: State,
   ...enhancers: Enhancer<State, any>[]
 ) {
-  const store = (createStore as any)(initialState, ...enhancers);
+  const store = (createStore as any)(
+    initialState,
+    ...enhancers,
+    selectorHook()
+  );
 
-  return [withStore(store), store];
+  return store;
 }

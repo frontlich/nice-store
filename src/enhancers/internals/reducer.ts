@@ -1,4 +1,5 @@
-import type { EnhancerNext } from "../type";
+import { checkStore } from '../../utils';
+import type { NextEnhancer } from '../../type';
 
 type Reducer<S, A> = (state: S, action: A) => S;
 
@@ -11,10 +12,14 @@ type Ext<A> = {
 export const reducer =
   <State, Action, PreExt>(
     reducerFn: Reducer<State, Action>
-  ): EnhancerNext<State, PreExt, Ext<Action>> =>
+  ): NextEnhancer<State, PreExt, Ext<Action>> =>
   (createStore) =>
   (initialState) => {
     const store = createStore(initialState);
+
+    if (process.env.NODE_ENV !== 'production') {
+      checkStore(store, 'reducer', 'dispatch');
+    }
 
     const dispatch: Dispatch<Action> = (action) => {
       const state = reducerFn(store.getState(), action);
