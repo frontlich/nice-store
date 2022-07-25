@@ -1,6 +1,6 @@
 {
   "name": "nice-store",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "frontlich",
   "license": "MIT",
   "main": "dist/index.js",
