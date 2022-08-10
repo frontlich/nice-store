@@ -19,7 +19,7 @@ nice-store 是一个轻量的、灵活的、易扩展的状态管理工具，它
 
 nice-store 与 redux 的区别
 
-- nice-store 的 store 个数可以根据需要创建多个，每个 store 都可以使用不同的[增强函数](/zh-cn/enhancer)，而 redux 全局只有一个唯一的 store。
+- nice-store 的 store 个数可以根据需要创建多个，每个 store 都可以使用不同的[增强器](/zh-cn/enhancer)，而 redux 全局只有一个唯一的 store。
 - nice-store 可以不使用 Provider、Context，也不用写 dispatch、action、reducer 等样板代码。
 
 |            | nice-store | redux                                   |

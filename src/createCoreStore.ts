@@ -1,6 +1,6 @@
-import { isFunction } from "./utils";
+import { isFunction } from './utils';
 
-import type { SetState, Listener, UnSubscribe } from "./type";
+import type { SetState, Listener, UnSubscribe } from './type';
 
 /**
  * 创建一个核心的store
@@ -15,7 +15,7 @@ export const createCoreStore = <T>(initialState?: T) => {
     const updateState = isFunction(update) ? update(internalState) : update;
 
     // 如果状态未变更，不需要执行订阅函数
-    if (Object.is(initialState, updateState)) return;
+    if (Object.is(internalState, updateState)) return;
 
     // 更新内部状态
     internalState = updateState;
