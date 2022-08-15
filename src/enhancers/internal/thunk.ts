@@ -1,28 +1,44 @@
-import { checkStore } from '../../utils';
+import { isFunction } from '../../utils';
 import type { EnhancedStore, NextEnhancer } from '../../type';
+import type { AnyAction, Ext as ReducerExt } from './reducer';
 
-type ThunkFn<S, E, R> = (store: EnhancedStore<S, E>) => R;
+type ThunkFn<S, E> = (store: EnhancedStore<S, E>) => unknown;
 
-export type Ext<R> = {
-  run: () => R;
+export type Ext<S, E> = {
+  dispatch: <A extends ThunkFn<S, E>>(fn: A) => ReturnType<A>;
 };
 
-export const thunk =
-  <State, PreExt, Return>(
-    thunkFn: ThunkFn<State, PreExt, Return>
-  ): NextEnhancer<State, PreExt, Ext<Return>> =>
-  (createStore) =>
-  (initialState) => {
+export function thunk<State, PreExt>(): NextEnhancer<
+  State,
+  PreExt,
+  Ext<State, PreExt>
+>;
+export function thunk<
+  State,
+  Action extends AnyAction,
+  PreExt extends ReducerExt<Action>
+>(): NextEnhancer<State, PreExt, Ext<State, PreExt>> {
+  return (createStore) => (initialState) => {
     const store = createStore(initialState);
 
-    if (process.env.NODE_ENV !== 'production') {
-      checkStore(store, 'thunk', 'run');
-    }
-
-    const run = () => thunkFn(store);
+    const dispatch = (action: Action | ThunkFn<State, PreExt>) => {
+      if (isFunction(action)) {
+        return action(store);
+      }
+      if (
+        process.env.NODE_ENV !== 'production' &&
+        !isFunction(store.dispatch)
+      ) {
+        throw new Error(
+          'if action is not a function, thunk enhancer must used after reducer enhancer'
+        );
+      }
+      return store.dispatch(action);
+    };
 
     return {
       ...store,
-      run,
+      dispatch,
     };
   };
+}

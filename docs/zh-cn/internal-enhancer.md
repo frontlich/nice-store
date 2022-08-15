@@ -124,64 +124,30 @@ create 函数内置了 selectorHook 增强器
 
 ## thunk
 
-thunk 增强器接收一个 "thunk" 函数作为参数，可以用来处理异步的状态更新，它会给 store 添加 run 方法，调用 run 方法会执行增强器的 "thunk" 参数
+thunk 增强器可以用来处理异步的状态更新，它会给 store 增加一个 dispatch 方法，该方法接收一个函数作为参数，调用 dispatch 时， 传入的函数会执行并可以在适当的时机更新状态。
+
+如果在 thunk 之前使用了 reducer 增强器，那么它会修改 store 的 dispatch 方法，使 dispatch 支持传入函数作为参数
 
 用法
 
 ```js
 import create, { thunk } from 'nice-store';
 
-const store = create(
-  { count: 0 },
-  thunk((store) => {
-    setTimeout(() => {
-      store.setState((state) => ({ count: state.count + 1 }));
-    }, 1000);
-  })
-);
+const countStore = create({ count: 0 }, thunk());
+
+const asyncAdd = (store) => {
+  setTimeout(() => {
+    store.setState((state) => ({ count: state.count + 1 }));
+  }, 1000);
+};
 
 const Counter = () => {
-  const count = store.useSelector((state) => state.count);
+  const count = countStore.useSelector((state) => state.count);
 
   return (
     <div>
       <div>{count}</div>
-      <button onClick={() => store.run()}>add</button>
-    </div>
-  );
-};
-```
-
-## takeLatestLoading
-
-takeLatestLoading 增强器用于处理 takeLatest 增强器的 send 函数的 loading 状态，它会给 store 增加一个 useLoading hook，只能在 takeLatest 增强器之后使用
-
-用法
-
-```js
-import create, { thunk, takeLatestLoading } from 'nice-store';
-
-const store = create(
-  { count: 0 },
-  takeLatest(
-    (v) =>
-      new Promise((resolve) => {
-        setTimeout(() => {
-          resolve({ count: v });
-        }, 1000);
-      })
-  ),
-  takeLatestLoading()
-);
-
-const Counter = () => {
-  const count = store.useSelector((state) => state.count);
-  const loading = store.useLoading();
-
-  return (
-    <div>
-      <div>{loading ? '...' : count}</div>
-      <button onClick={() => store.send(2)}>add</button>
+      <button onClick={() => countStore.dispatch(asyncAdd)}>async add</button>
     </div>
   );
 };

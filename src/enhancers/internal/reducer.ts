@@ -1,16 +1,18 @@
 import { checkStore } from '../../utils';
 import type { NextEnhancer } from '../../type';
 
+export type AnyAction = string | number | boolean | object;
+
 type Reducer<S, A> = (state: S, action: A) => S;
 
 type Dispatch<A> = (action: A) => A;
 
-type Ext<A> = {
+export type Ext<A> = {
   dispatch: Dispatch<A>;
 };
 
 export const reducer =
-  <State, Action, PreExt>(
+  <State, Action extends AnyAction, PreExt>(
     reducerFn: Reducer<State, Action>
   ): NextEnhancer<State, PreExt, Ext<Action>> =>
   (createStore) =>
