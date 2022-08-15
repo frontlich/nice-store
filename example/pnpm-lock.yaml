@@ -7,7 +7,7 @@ specifiers:
   '@types/react': ^18.0.15
   '@types/react-dom': ^18.0.6
   antd: ^4.22.4
-  nice-store: 0.0.2-1
+  nice-store: 0.0.2-2
   react: ^18.2.0
   react-dom: ^18.2.0
   react-router-dom: ^6.3.0
@@ -21,7 +21,7 @@ dependencies:
   '@types/react': 18.0.15
   '@types/react-dom': 18.0.6
   antd: 4.22.4_biqbaboplfbrettd7655fr4n2y
-  nice-store: 0.0.2-1
+  nice-store: 0.0.2-2
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-router-dom: 6.3.0_biqbaboplfbrettd7655fr4n2y
@@ -6766,8 +6766,8 @@ packages:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: false
 
-  /nice-store/0.0.2-1:
-    resolution: {integrity: sha512-qxDNyQRaCI3gvlKKV4C79uTSf+pxxPcxs5Ah1o39ElLbcfEEJo4M4FobGXIUgsuGSxUo6skygRKPR2jk3dqJkw==}
+  /nice-store/0.0.2-2:
+    resolution: {integrity: sha512-vTEwC2xS0bSEThXAWQbJbge+HS0z/wpcBeU+OenRrbiqvT9rsR0nFw1eMjJFhOr+tY664ZBbCOZb/m5Ir2I5aQ==}
     engines: {node: '>=10'}
     peerDependencies:
       rxjs: '>=6'
