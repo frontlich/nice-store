@@ -1,15 +1,14 @@
 import { create } from '../../react';
 import { checkStore, isFunction } from '../../utils';
 import type { NextEnhancer } from '../../type';
-import type { Ext as AsyncExt } from './async';
+import type { AsyncType, Ext as AsyncExt } from './async';
 
 type Ext = {
-  useLoading: () => boolean;
-  useLoadingMap: () => Record<number, boolean>;
+  useLoading: (type?: AsyncType) => boolean;
 };
 
 export const asyncLoading =
-  <State, Params, PreExt extends AsyncExt<Params, State>>(): NextEnhancer<
+  <State, PreExt extends AsyncExt<any, State>>(): NextEnhancer<
     State,
     PreExt,
     Ext
@@ -34,22 +33,33 @@ export const asyncLoading =
 
     let curId: number;
 
-    const runAsync = (p: Params) => {
+    const runAsync = (p: unknown) => {
       const id = (store as any).__getCurrentAsyncId();
       curId = id;
-      setLoading(id, false);
+      setLoading(id, true);
       const res = store.runAsync(p);
-      res.finally(() => setLoading(id, true));
+      res.finally(() => setLoading(id, false));
       return res;
+    };
+
+    const useLoading = (type?: AsyncType) => {
+      const loadingMap = useSelector();
+
+      if (type === 'takeEvery') {
+        for (const key in loadingMap) {
+          if (loadingMap[key]) {
+            return true;
+          }
+        }
+        return false;
+      }
+
+      return !!loadingMap[curId];
     };
 
     return {
       ...store,
       runAsync,
-      useLoading: () => {
-        const loadingMap = useSelector();
-        return !!loadingMap[curId];
-      },
-      useLoadingMap: useSelector,
+      useLoading,
     };
   };

@@ -7,11 +7,12 @@ specifiers:
   '@types/react': ^18.0.15
   '@types/react-dom': ^18.0.6
   antd: ^4.22.4
-  nice-store: 0.0.2-2
+  nice-store: 0.0.2-8
   react: ^18.2.0
   react-dom: ^18.2.0
   react-router-dom: ^6.3.0
   react-scripts: 5.0.1
+  rxjs: ^7.5.6
   typescript: ^4.7.4
 
 dependencies:
@@ -21,11 +22,12 @@ dependencies:
   '@types/react': 18.0.15
   '@types/react-dom': 18.0.6
   antd: 4.22.4_biqbaboplfbrettd7655fr4n2y
-  nice-store: 0.0.2-2
+  nice-store: 0.0.2-8_rxjs@7.5.6
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-router-dom: 6.3.0_biqbaboplfbrettd7655fr4n2y
   react-scripts: 5.0.1_qtbnez4q7bzoc4eqybg3efzzxe
+  rxjs: 7.5.6
   typescript: 4.7.4
 
 packages:
@@ -6766,8 +6768,8 @@ packages:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: false
 
-  /nice-store/0.0.2-2:
-    resolution: {integrity: sha512-vTEwC2xS0bSEThXAWQbJbge+HS0z/wpcBeU+OenRrbiqvT9rsR0nFw1eMjJFhOr+tY664ZBbCOZb/m5Ir2I5aQ==}
+  /nice-store/0.0.2-8_rxjs@7.5.6:
+    resolution: {integrity: sha512-B6GkY5N1Nokot9TFGQru0WSqOPMB8w9HH8ov4P0k6Ff3fWDXT5gYpnkpxFcCQUEa4qubk7BOVw8FKyJ1XRAb7A==}
     engines: {node: '>=10'}
     peerDependencies:
       rxjs: '>=6'
@@ -6776,6 +6778,7 @@ packages:
         optional: true
     dependencies:
       react: 18.2.0
+      rxjs: 7.5.6
       use-sync-external-store: 1.2.0_react@18.2.0
     dev: false
 
@@ -9019,6 +9022,12 @@ packages:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
     dependencies:
       queue-microtask: 1.2.3
+    dev: false
+
+  /rxjs/7.5.6:
+    resolution: {integrity: sha512-dnyv2/YsXhnm461G+R/Pe5bWP41Nm6LBXEYWI6eiFP4fiwx6WRI/CD0zbdVAudd9xwLEF2IDcKXLHit0FYjUzw==}
+    dependencies:
+      tslib: 2.4.0
     dev: false
 
   /safe-buffer/5.1.2:

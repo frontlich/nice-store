@@ -1,4 +1,4 @@
-import create, { async, reducer, reset } from 'nice-store';
+import create, { async, asyncLoading, reducer, reset } from 'nice-store';
 
 export enum ActionType {
   ADD,
@@ -32,5 +32,6 @@ export const store = create(
           resolve(v);
         }, 1000);
       })
-  )
+  ),
+  asyncLoading()
 );

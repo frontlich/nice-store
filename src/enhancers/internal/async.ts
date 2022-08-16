@@ -5,6 +5,8 @@ export type Ext<P, R> = {
   runAsync: (p: P) => Promise<R>;
 };
 
+export type AsyncType = 'takeLatest' | 'takeEvery';
+
 let defaultOverdueError: unknown = 'overdue';
 
 export const setOverdueError = (error: unknown) => {
@@ -33,7 +35,7 @@ export const async =
       params: Params,
       store: EnhancedStore<State, PreExt>
     ) => Promise<State>,
-    type: 'takeLatest' | 'takeEvery' = 'takeLatest',
+    type: AsyncType = 'takeLatest',
     overdueError: unknown = defaultOverdueError
   ): NextEnhancer<State, PreExt, Ext<Params, State>> =>
   (createStore) =>

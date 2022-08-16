@@ -1,4 +1,4 @@
-import { Store } from './type';
+import type { Store } from './type';
 
 export const isFunction = (obj: unknown): obj is Function =>
   typeof obj === 'function';
