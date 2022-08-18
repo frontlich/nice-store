@@ -1,15 +1,20 @@
 {
   "name": "nice-store",
+  "description": "lite & flexible & extensible state management for react",
   "version": "0.0.2-10",
   "author": "frontlich",
   "keywords": [
-    "state manage",
-    "nice-store",
+    "state management",
     "react",
+    "state",
+    "react-state",
+    "store",
+    "enhancer",
     "lite",
     "fast",
     "extensible",
-    "redux"
+    "redux",
+    "nice-store"
   ],
   "license": "MIT",
   "main": "dist/index.js",
@@ -37,9 +42,6 @@
     "enhancers",
     "src"
   ],
-  "engines": {
-    "node": ">=10"
-  },
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build && node ./build-enhancers.mjs",
@@ -56,6 +58,14 @@
       "pre-commit": "tsdx lint"
     }
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/frontlich/nice-store.git"
+  },
+  "bugs": {
+    "url": "https://github.com/frontlich/nice-store/issues"
+  },
+  "homepage": "https://frontlich.github.io/nice-store/#/",
   "prettier": {
     "printWidth": 80,
     "semi": true,
