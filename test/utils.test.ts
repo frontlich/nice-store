@@ -11,9 +11,11 @@ describe('utils', () => {
   test('isFunction', () => {
     expect(isFunction(0)).toBe(false);
     expect(isFunction({})).toBe(false);
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     expect(isFunction(function () {})).toBe(true);
     expect(isFunction(Function.prototype)).toBe(true);
     expect(isFunction(new Function())).toBe(true);
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     expect(isFunction(() => {})).toBe(true);
     expect(isFunction(Date)).toBe(true);
   });

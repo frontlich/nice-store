@@ -41,8 +41,6 @@ export const asyncLoading =
 
       try {
         return await store.runAsync(p);
-      } catch (error) {
-        throw error;
       } finally {
         setLoading(curId, false);
       }

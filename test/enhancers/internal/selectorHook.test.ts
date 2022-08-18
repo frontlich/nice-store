@@ -45,7 +45,7 @@ describe('enhancer:selectorHook', () => {
       );
     });
 
-    let curResult = result.current;
+    const curResult = result.current;
     expect(result.current).toEqual({ c: { d: 0 } });
 
     act(() => {
