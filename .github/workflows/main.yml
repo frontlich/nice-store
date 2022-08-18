@@ -1,5 +1,5 @@
 name: CI
-on: [push]
+on: [push, pull_request]
 jobs:
   build:
     name: Build, lint, and test on Node ${{ matrix.node }} and ${{ matrix.os }}
@@ -7,7 +7,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node: ['10.x', '12.x', '14.x']
+        node: ['12.x', '14.x', '16.x']
         os: [ubuntu-latest, windows-latest, macOS-latest]
 
     steps:
@@ -20,15 +20,15 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - name: Install deps and build (with cache)
-        uses: bahmutov/npm-install@v1
-        with:
-          useLockFile: false
+        uses: pnpm/action-setup@v2.2.2
 
       - name: Lint
-        run: yarn lint
+        run: npm run lint
 
       - name: Test
-        run: yarn test --ci --coverage --maxWorkers=2
+        run: npm run test --ci --coverage --maxWorkers=2
+        env:
+          CI: true
 
       - name: Build
-        run: yarn build
+        run: npm run build
