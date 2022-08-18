@@ -22,7 +22,7 @@ describe('enhancer:connect', () => {
         e: s1,
         f: s2.a,
         g: s3.b,
-      }))
+      })),
     );
 
     expect(store.getState()).toEqual({ d: 3, e: 0, f: 1, g: 2 });

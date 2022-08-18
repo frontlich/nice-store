@@ -19,7 +19,7 @@ describe('createStore', () => {
           custom,
         };
       },
-      (c) => (i) => c(i)
+      (c) => (i) => c(i),
     );
 
     expect(fn2).toBeCalledWith(initialState);

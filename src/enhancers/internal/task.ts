@@ -1,21 +1,18 @@
 import { checkStore, isFunction } from '../../utils';
 import type { EnhancedStore, NextEnhancer } from '../../type';
 
-type OmitFirstParameter<T extends (first: any, ...arg: any[]) => any> =
-  T extends (first: any, ...rest: infer P) => infer R
-    ? (...arg: P) => R
-    : never;
+type OmitFirstParameter<T extends (first: any, ...arg: any[]) => any> = T extends (
+  first: any,
+  ...rest: infer P
+) => infer R
+  ? (...arg: P) => R
+  : never;
 
 type Cancel = void | ((...args: any[]) => any);
 
-type TaskFn<S, E, C extends Cancel> = (
-  store: EnhancedStore<S, E>,
-  ...arg: any[]
-) => C;
+type TaskFn<S, E, C extends Cancel> = (store: EnhancedStore<S, E>, ...arg: any[]) => C;
 
-type CancelTask<T extends TaskFn<any, any, any>> = ReturnType<T> extends (
-  ...args: any[]
-) => any
+type CancelTask<T extends TaskFn<any, any, any>> = ReturnType<T> extends (...args: any[]) => any
   ? ReturnType<T>
   : () => void;
 
@@ -27,7 +24,7 @@ type Ext<Fn extends TaskFn<any, any, any>> = {
 export const task =
   <State, PreExt, Task extends TaskFn<State, PreExt, Cancel>>(
     taskFn: Task,
-    autoRun = true
+    autoRun = true,
   ): NextEnhancer<State, PreExt, Ext<Task>> =>
   (createStore) =>
   (initialState) => {

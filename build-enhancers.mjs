@@ -1,6 +1,7 @@
-import esbuild from 'esbuild';
 import path from 'path';
 import fs from 'fs/promises';
+
+import esbuild from 'esbuild';
 
 const enhancersDir = path.resolve('src', 'enhancers');
 
@@ -65,8 +66,8 @@ async function build() {
         sideEffects: false,
       },
       null,
-      '  '
-    )
+      '  ',
+    ),
   );
 }
 

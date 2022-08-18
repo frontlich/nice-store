@@ -1,6 +1,13 @@
 {
   "eslint.enable": true,
+  "eslint.format.enable": true,
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
   "cSpell.words": ["antd", "Sider"]
 }

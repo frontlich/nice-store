@@ -14,6 +14,7 @@ specifiers:
   esbuild: ^0.15.3
   eslint: ^8.22.0
   eslint-plugin-import: ^2.26.0
+  eslint-plugin-prettier: ^4.2.1
   husky: ^8.0.1
   lint-staged: ^13.0.3
   prettier: ^2.7.1
@@ -44,6 +45,7 @@ devDependencies:
   esbuild: 0.15.3
   eslint: 8.22.0
   eslint-plugin-import: 2.26.0_3bh5nkk7utn7e74vrwtv6rxmt4
+  eslint-plugin-prettier: 4.2.1_2xd4q2tc5cqa5as7uugqhp6oue
   husky: 8.0.1
   lint-staged: 13.0.3
   prettier: 2.7.1
@@ -4204,6 +4206,22 @@ packages:
       eslint: 6.8.0
       eslint-config-prettier: 6.15.0_eslint@6.8.0
       prettier: 1.19.1
+      prettier-linter-helpers: 1.0.0
+    dev: true
+
+  /eslint-plugin-prettier/4.2.1_2xd4q2tc5cqa5as7uugqhp6oue:
+    resolution: {integrity: sha512-f/0rXLXUt0oFYs8ra4w49wYZBG5GKZpAYsJSm6rnYL5uVDjd+zowwMwVZHnAjf4edNrKpCDYfXDgmRE/Ak7QyQ==}
+    engines: {node: '>=12.0.0'}
+    peerDependencies:
+      eslint: '>=7.28.0'
+      eslint-config-prettier: '*'
+      prettier: '>=2.0.0'
+    peerDependenciesMeta:
+      eslint-config-prettier:
+        optional: true
+    dependencies:
+      eslint: 8.22.0
+      prettier: 2.7.1
       prettier-linter-helpers: 1.0.0
     dev: true
 

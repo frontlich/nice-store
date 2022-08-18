@@ -1,11 +1,5 @@
 import { create } from '../src/react';
-import {
-  isFunction,
-  defaultSelector,
-  shallowEqual,
-  pipeFromArray,
-  checkStore,
-} from '../src/utils';
+import { isFunction, defaultSelector, shallowEqual, pipeFromArray, checkStore } from '../src/utils';
 
 describe('utils', () => {
   test('isFunction', () => {
@@ -36,23 +30,15 @@ describe('utils', () => {
   });
   test('pipeFromArray', () => {
     expect(
-      pipeFromArray([
-        (v: number) => v + 1,
-        (v: number) => v + 2,
-        (v: number) => String(v),
-      ])(0)
+      pipeFromArray([(v: number) => v + 1, (v: number) => v + 2, (v: number) => String(v)])(0),
     ).toBe('3');
   });
   test('checkStore', () => {
     jest.spyOn(console, 'warn').mockImplementation(() => {
       throw new Error();
     });
-    expect(() =>
-      checkStore(create(), 'myEnhancer', 'custom')
-    ).not.toThrowError();
+    expect(() => checkStore(create(), 'myEnhancer', 'custom')).not.toThrowError();
 
-    expect(() =>
-      checkStore(create(), 'myEnhancer', 'useSelector')
-    ).toThrowError();
+    expect(() => checkStore(create(), 'myEnhancer', 'useSelector')).toThrowError();
   });
 });

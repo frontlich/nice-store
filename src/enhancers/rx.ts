@@ -11,25 +11,25 @@ type Ext<T> = {
 export function rx<State, PreExt>(): NextEnhancer<State, PreExt, Ext<State>>;
 
 export function rx<State, PreExt, T>(
-  operator: OperatorFunction<T, State>
+  operator: OperatorFunction<T, State>,
 ): NextEnhancer<State, PreExt, Ext<T>>;
 
 export function rx<State, PreExt, T1, T2>(
   operator1: OperatorFunction<T1, T2>,
-  operator2: OperatorFunction<T2, State>
+  operator2: OperatorFunction<T2, State>,
 ): NextEnhancer<State, PreExt, Ext<T1>>;
 
 export function rx<State, PreExt, T1, T2, T3>(
   operator1: OperatorFunction<T1, T2>,
   operator2: OperatorFunction<T2, T3>,
-  operator3: OperatorFunction<T3, State>
+  operator3: OperatorFunction<T3, State>,
 ): NextEnhancer<State, PreExt, Ext<T1>>;
 
 export function rx<State, PreExt, T1, T2, T3, T4>(
   operator1: OperatorFunction<T1, T2>,
   operator2: OperatorFunction<T2, T3>,
   operator3: OperatorFunction<T3, T4>,
-  operator4: OperatorFunction<T4, State>
+  operator4: OperatorFunction<T4, State>,
 ): NextEnhancer<State, PreExt, Ext<T1>>;
 
 export function rx<State, PreExt, T1, T2, T3, T4, T5>(
@@ -37,7 +37,7 @@ export function rx<State, PreExt, T1, T2, T3, T4, T5>(
   operator2: OperatorFunction<T2, T3>,
   operator3: OperatorFunction<T3, T4>,
   operator4: OperatorFunction<T4, T5>,
-  operator5: OperatorFunction<T5, State>
+  operator5: OperatorFunction<T5, State>,
 ): NextEnhancer<State, PreExt, Ext<T1>>;
 
 export function rx<State, PreExt, Next>(

@@ -8,11 +8,7 @@ type Ext = {
 };
 
 export const asyncLoading =
-  <State, PreExt extends AsyncExt<any, State>>(): NextEnhancer<
-    State,
-    PreExt,
-    Ext
-  > =>
+  <State, PreExt extends AsyncExt<any, State>>(): NextEnhancer<State, PreExt, Ext> =>
   (createStore) =>
   (initialState) => {
     const store = createStore(initialState);

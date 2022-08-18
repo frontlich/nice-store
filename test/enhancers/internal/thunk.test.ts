@@ -13,7 +13,7 @@ afterAll(() => {
   jest.useRealTimers();
 });
 
-describe('enhancer:reset', () => {
+describe('enhancer:thunk', () => {
   test('works', () => {
     const initialState = 0;
     const store = createStore(initialState, thunk());

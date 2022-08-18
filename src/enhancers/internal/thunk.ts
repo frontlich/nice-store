@@ -8,15 +8,11 @@ export type Ext<S, E> = {
   dispatch: <A extends ThunkFn<S, E>>(fn: A) => ReturnType<A>;
 };
 
-export function thunk<State, PreExt>(): NextEnhancer<
-  State,
-  PreExt,
-  Ext<State, PreExt>
->;
+export function thunk<State, PreExt>(): NextEnhancer<State, PreExt, Ext<State, PreExt>>;
 export function thunk<
   State,
   Action extends AnyAction,
-  PreExt extends ReducerExt<Action>
+  PreExt extends ReducerExt<Action>,
 >(): NextEnhancer<State, PreExt, Ext<State, PreExt>> {
   return (createStore) => (initialState) => {
     const store = createStore(initialState);
@@ -25,12 +21,9 @@ export function thunk<
       if (isFunction(action)) {
         return action(store);
       }
-      if (
-        process.env.NODE_ENV !== 'production' &&
-        !isFunction(store.dispatch)
-      ) {
+      if (process.env.NODE_ENV !== 'production' && !isFunction(store.dispatch)) {
         throw new Error(
-          'if action is not a function, thunk enhancer must used after reducer enhancer'
+          'if action is not a function, thunk enhancer must used after reducer enhancer',
         );
       }
       return store.dispatch(action);

@@ -11,19 +11,16 @@ type RestOptions<D, P extends unknown[]> = Omit<
 >;
 
 interface Ext<S> {
-  withCache<TData extends S, TParams extends unknown[]>(): Options<
-    TData,
-    TParams
-  >;
+  withCache<TData extends S, TParams extends unknown[]>(): Options<TData, TParams>;
   withCache<TData extends S, TParams extends unknown[]>(
-    options: RestOptions<TData, TParams>
+    options: RestOptions<TData, TParams>,
   ): Options<TData, TParams>;
   withCache<TData, TParams extends unknown[]>(
-    mapDataToState: (d: TData, p: TParams, s: S) => S
+    mapDataToState: (d: TData, p: TParams, s: S) => S,
   ): Options<TData, TParams>;
   withCache<TData, TParams extends unknown[]>(
     options: RestOptions<TData, TParams>,
-    mapDataToState: (d: TData, p: TParams, s: S) => S
+    mapDataToState: (d: TData, p: TParams, s: S) => S,
   ): Options<TData, TParams>;
 }
 
@@ -43,11 +40,7 @@ export const requestCache =
         optionsOrMap?:
           | RestOptions<TData, TParams>
           | ((data: TData, params: TParams, preState: State) => State),
-        mapDataToState?: (
-          data: TData,
-          params: TParams,
-          preState: State
-        ) => State
+        mapDataToState?: (data: TData, params: TParams, preState: State) => State,
       ) => {
         const options = typeof optionsOrMap === 'object' ? optionsOrMap : {};
         const map2state = isFunction(mapDataToState)
@@ -83,7 +76,7 @@ export const requestCache =
             store.setState((preState) =>
               map2state
                 ? map2state(data.data, data.params, preState)
-                : (data.data as unknown as State)
+                : (data.data as unknown as State),
             );
           },
           ...options,

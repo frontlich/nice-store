@@ -7,7 +7,7 @@ import type { NextEnhancer, Selector } from '../../type';
 type Ext<State> = {
   useSelector: <Slice>(
     selector?: Selector<State, Slice>,
-    isEqual?: (pre: Slice, cur: Slice) => boolean
+    isEqual?: (pre: Slice, cur: Slice) => boolean,
   ) => Slice;
 };
 
@@ -25,14 +25,14 @@ export const selectorHook =
 
     const useSelector = <Slice>(
       selector: Selector<ExtractState<PreExt>, Slice> = defaultSelector,
-      isEqual: (pre: Slice, cur: Slice) => boolean = shallowEqual
+      isEqual: (pre: Slice, cur: Slice) => boolean = shallowEqual,
     ) => {
       const slice = useSyncExternalStoreWithSelector(
         store.subscribe,
         store.getState as () => ExtractState<PreExt>,
         null,
         selector,
-        isEqual
+        isEqual,
       );
 
       useDebugValue(slice);

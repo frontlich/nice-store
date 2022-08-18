@@ -14,7 +14,7 @@ describe('enhancer:reducer', () => {
           default:
             return state;
         }
-      })
+      }),
     );
 
     const mockFn = jest.fn();

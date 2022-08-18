@@ -21,12 +21,10 @@ export type CreateCoreStore<S> = (initialState?: S) => Store<S>;
 
 export type CreateStore<S, Ext> = (initialState?: S) => EnhancedStore<S, Ext>;
 
-export type Enhancer<S, Ext> = (
-  createCoreStore: CreateCoreStore<S>
-) => CreateStore<S, Ext>;
+export type Enhancer<S, Ext> = (createCoreStore: CreateCoreStore<S>) => CreateStore<S, Ext>;
 
 export type NextEnhancer<S, Ext1, Ext2 = Ext1> = (
-  createStore: CreateStore<S, Ext1>
+  createStore: CreateStore<S, Ext1>,
 ) => CreateStore<S, Ext1 & Ext2>;
 
 export type Selector<State, Slice> = (state: State) => Slice;

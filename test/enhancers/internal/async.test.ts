@@ -13,7 +13,7 @@ describe('enhancer:async', () => {
   test('setState after micro task', async () => {
     const store = createStore(
       1,
-      async((v: number) => Promise.resolve(v))
+      async((v: number) => Promise.resolve(v)),
     );
 
     const res = store.runAsync(2);
@@ -33,8 +33,8 @@ describe('enhancer:async', () => {
             setTimeout(() => {
               resolve(v);
             }, 1000);
-          })
-      )
+          }),
+      ),
     );
 
     const res = store.runAsync(2);
@@ -58,8 +58,8 @@ describe('enhancer:async', () => {
             }, 1000);
           }),
         'takeLatest',
-        overdueError
-      )
+        overdueError,
+      ),
     );
 
     const res1 = store.runAsync(2);
@@ -90,8 +90,8 @@ describe('enhancer:async', () => {
               resolve(v);
             }, 1000);
           }),
-        'takeEvery'
-      )
+        'takeEvery',
+      ),
     );
 
     const res1 = store.runAsync(2);

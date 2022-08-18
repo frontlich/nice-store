@@ -31,12 +31,9 @@ export const setOverdueError = (error: unknown) => {
  */
 export const async =
   <State, PreExt, Params>(
-    asyncFn: (
-      params: Params,
-      store: EnhancedStore<State, PreExt>
-    ) => Promise<State>,
+    asyncFn: (params: Params, store: EnhancedStore<State, PreExt>) => Promise<State>,
     type: AsyncType = 'takeLatest',
-    overdueError: unknown = defaultOverdueError
+    overdueError: unknown = defaultOverdueError,
   ): NextEnhancer<State, PreExt, Ext<Params, State>> =>
   (createStore) =>
   (initialState) => {

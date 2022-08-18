@@ -13,7 +13,7 @@ export type Ext<A> = {
 
 export const reducer =
   <State, Action extends AnyAction, PreExt>(
-    reducerFn: Reducer<State, Action>
+    reducerFn: Reducer<State, Action>,
   ): NextEnhancer<State, PreExt, Ext<Action>> =>
   (createStore) =>
   (initialState) => {

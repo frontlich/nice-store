@@ -63,12 +63,6 @@
     "url": "https://github.com/frontlich/nice-store/issues"
   },
   "homepage": "https://frontlich.github.io/nice-store/#/",
-  "prettier": {
-    "printWidth": 80,
-    "semi": true,
-    "singleQuote": true,
-    "trailingComma": "es5"
-  },
   "size-limit": [
     {
       "path": "dist/nice-store.cjs.production.min.js",
@@ -93,6 +87,7 @@
     "esbuild": "^0.15.3",
     "eslint": "^8.22.0",
     "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",

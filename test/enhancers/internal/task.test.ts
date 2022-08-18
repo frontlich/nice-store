@@ -13,7 +13,7 @@ describe('enhancer:task', () => {
         return () => {
           mockCancelFn();
         };
-      })
+      }),
     );
 
     expect(mockRunFn).toBeCalled();
@@ -40,7 +40,7 @@ describe('enhancer:task', () => {
         return () => {
           mockCancelFn();
         };
-      }, false)
+      }, false),
     );
 
     expect(mockRunFn).not.toBeCalled();
@@ -67,7 +67,7 @@ describe('enhancer:task', () => {
           store.setState((c) => c + 1);
         }, 1000);
         return () => clearInterval(timer);
-      })
+      }),
     );
 
     const mockFn = jest.fn();

@@ -1,7 +1,6 @@
 import type { Store } from './type';
 
-export const isFunction = (obj: unknown): obj is Function =>
-  typeof obj === 'function';
+export const isFunction = (obj: unknown): obj is Function => typeof obj === 'function';
 
 export const defaultSelector = (arg: any) => arg;
 
@@ -9,12 +8,7 @@ export const shallowEqual = <T, U>(objA: T, objB: U) => {
   if (Object.is(objA, objB)) {
     return true;
   }
-  if (
-    typeof objA !== 'object' ||
-    objA === null ||
-    typeof objB !== 'object' ||
-    objB === null
-  ) {
+  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
     return false;
   }
   const keysA = Object.keys(objA);
@@ -36,14 +30,10 @@ export const pipeFromArray = (fns: Function[]) => {
   return (input: any) => fns.reduce((pre, fn) => fn(pre), input);
 };
 
-export const checkStore = <S>(
-  store: Store<S>,
-  enhancerName: string,
-  ...properties: string[]
-) => {
+export const checkStore = <S>(store: Store<S>, enhancerName: string, ...properties: string[]) => {
   if (process.env.NODE_ENV !== 'production') {
     const dangerProperties = properties.filter((property) =>
-      Object.prototype.hasOwnProperty.call(store, property)
+      Object.prototype.hasOwnProperty.call(store, property),
     );
 
     if (dangerProperties.length) {
@@ -53,7 +43,7 @@ export const checkStore = <S>(
           isMulti ? 'properties' : 'property'
         } \`${dangerProperties.join(',')}\` to store which already has ${
           isMulti ? 'those' : 'this'
-        } property`
+        } property`,
       );
     }
   }

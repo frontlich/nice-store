@@ -26,9 +26,9 @@ describe('enhancer:asyncLoading', () => {
             setTimeout(() => {
               resolve(v);
             }, v * 1000);
-          })
+          }),
       ),
-      asyncLoading()
+      asyncLoading(),
     );
 
     const { result } = renderHook(() => store.useLoading());
@@ -73,9 +73,9 @@ describe('enhancer:asyncLoading', () => {
             setTimeout(() => {
               resolve(v);
             }, v * 1000);
-          })
+          }),
       ),
-      asyncLoading()
+      asyncLoading(),
     );
 
     const { result } = renderHook(() => store.useLoading());
@@ -117,9 +117,9 @@ describe('enhancer:asyncLoading', () => {
               resolve(v);
             }, v * 1000);
           }),
-        'takeEvery'
+        'takeEvery',
       ),
-      asyncLoading()
+      asyncLoading(),
     );
 
     const { result } = renderHook(() => store.useLoading('takeEvery'));

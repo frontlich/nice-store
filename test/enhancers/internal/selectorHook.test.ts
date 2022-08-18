@@ -41,7 +41,7 @@ describe('enhancer:selectorHook', () => {
     const { result } = renderHook(() => {
       return store.useSelector(
         (state) => ({ c: { d: state.a + state.b } }),
-        (pre, cur) => cur.c.d === pre.c.d
+        (pre, cur) => cur.c.d === pre.c.d,
       );
     });
 
