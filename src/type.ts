@@ -11,8 +11,8 @@ export type Store<S> = {
   getState: () => S;
   /** 订阅状态改变 */
   subscribe: (listener: Listener<S>) => UnSubscribe;
-  /** 销毁所有订阅 */
-  destroy: () => void;
+  /** 冻结状态并销毁所有订阅 */
+  freeze: () => void;
 };
 
 export type EnhancedStore<State, Ext> = Store<State> & Ext;

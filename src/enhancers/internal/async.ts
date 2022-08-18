@@ -50,7 +50,7 @@ export const async =
 
     const runAsync = async (p: Params) => {
       id++;
-      let curId = id;
+      const curId = id;
 
       const res = await asyncFn(p, store);
 
@@ -70,11 +70,5 @@ export const async =
     return {
       ...store,
       runAsync,
-      /**
-       * 获取当前异步的最新id
-       * @internal 该函数给 asyncLoading 增强器使用
-       * @returns 当前的最新id
-       */
-      __getCurrentAsyncId: () => id,
     };
   };

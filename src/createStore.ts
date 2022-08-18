@@ -151,6 +151,6 @@ export function createStore<State>(
   initialState?: State,
   ...enhancers: Enhancer<State, any>[]
 ) {
-  const createStore = pipeFromArray(enhancers)(createCoreStore);
-  return createStore(initialState);
+  const finalCreateStore = pipeFromArray(enhancers)(createCoreStore);
+  return finalCreateStore(initialState);
 }

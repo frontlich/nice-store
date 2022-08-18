@@ -31,7 +31,7 @@ store.setState((state) => ({ count: state.count + 1 }));
 1. setState：设置/更新状态
 2. getState：获取最新状态
 3. subscribe：添加监听状态更新的函数
-4. destroy：销毁所有状态监听
+4. freeze：冻结状态并销毁所有监听
 
 这完成了一个状态的发布订阅的最基本实现。但这对于我们复杂的应用来说，功能还不够强大，下面让我们来增强一下这个 store
 

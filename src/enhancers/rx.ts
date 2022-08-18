@@ -59,9 +59,9 @@ export function rx<State, PreExt, Next>(
     return {
       ...store,
       next: subject.next.bind(subject),
-      destroy: () => {
+      freeze: () => {
         sub.unsubscribe();
-        store.destroy();
+        store.freeze();
       },
     };
   };

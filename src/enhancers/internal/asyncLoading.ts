@@ -18,7 +18,7 @@ export const asyncLoading =
     const store = createStore(initialState);
 
     if (process.env.NODE_ENV !== 'production') {
-      checkStore(store, 'asyncLoading', 'useLoading', 'useLoadingMap');
+      checkStore(store, 'asyncLoading', 'useLoading');
     }
 
     if (process.env.NODE_ENV !== 'production' && !isFunction(store.runAsync)) {
@@ -31,30 +31,36 @@ export const asyncLoading =
       setState((map) => ({ ...map, [id]: status }));
     };
 
-    let curId: number;
+    let id = 0;
 
-    const runAsync = (p: unknown) => {
-      const id = (store as any).__getCurrentAsyncId();
-      curId = id;
-      setLoading(id, true);
-      const res = store.runAsync(p);
-      res.finally(() => setLoading(id, false));
-      return res;
+    const runAsync = async (p: unknown) => {
+      id++;
+      const curId = id;
+
+      setLoading(curId, true);
+
+      try {
+        return await store.runAsync(p);
+      } catch (error) {
+        throw error;
+      } finally {
+        setLoading(curId, false);
+      }
     };
 
-    const useLoading = (type?: AsyncType) => {
+    const useLoading = (type: AsyncType = 'takeLatest') => {
       const loadingMap = useSelector();
 
-      if (type === 'takeEvery') {
-        for (const key in loadingMap) {
-          if (loadingMap[key]) {
-            return true;
-          }
-        }
-        return false;
+      if (type === 'takeLatest') {
+        return !!loadingMap[id];
       }
 
-      return !!loadingMap[curId];
+      for (const key in loadingMap) {
+        if (loadingMap[key]) {
+          return true;
+        }
+      }
+      return false;
     };
 
     return {

@@ -77,6 +77,17 @@ export function connect<State, PreExt>(
 
   return (createStore) => (initialState) => {
     const store = createStore(initialState);
+    let isFrozen = false;
+    let currentState = store.getState();
+
+    if (
+      process.env.NODE_ENV !== 'production' &&
+      typeof store.getState() !== 'object'
+    ) {
+      console.warn(
+        'external store state will cover current state which is not object'
+      );
+    }
 
     // 获取外部store的状态
     const getExternalState = () => {
@@ -85,10 +96,14 @@ export function connect<State, PreExt>(
     };
 
     // 获取所有store的状态
-    const getState = () => ({ ...store.getState(), ...getExternalState() });
+    const getState = () => {
+      if (isFrozen) return currentState;
+      return (currentState = { ...store.getState(), ...getExternalState() });
+    };
 
     // 设置当前store的状态，并同步外部store的状态
     const setState: SetState<State> = (update) => {
+      if (isFrozen) return;
       const curState = isFunction(update) ? update(store.getState()) : update;
       store.setState({ ...curState, ...getExternalState() });
     };
@@ -104,9 +119,10 @@ export function connect<State, PreExt>(
       ...store,
       setState,
       getState,
-      destroy: () => {
+      freeze: () => {
+        isFrozen = true;
         unSubs.forEach((unSub) => unSub());
-        store.destroy();
+        store.freeze();
       },
     };
   };

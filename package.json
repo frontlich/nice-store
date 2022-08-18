@@ -1,6 +1,6 @@
 {
   "name": "nice-store",
-  "version": "0.0.2-8",
+  "version": "0.0.2-10",
   "author": "frontlich",
   "keywords": [
     "state manage",
@@ -44,6 +44,7 @@
     "start": "tsdx watch",
     "build": "tsdx build && node ./build-enhancers.mjs",
     "test": "tsdx test",
+    "test:watch": "tsdx test --watch",
     "lint": "tsdx lint",
     "prepare": "npm run build",
     "size": "size-limit",
@@ -73,13 +74,18 @@
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^7.0.8",
+    "@testing-library/react": "^13.3.0",
+    "@types/jest": "^28.1.7",
     "@types/node": "^18.0.5",
     "@types/react": "^18.0.15",
     "@types/use-sync-external-store": "^0.0.3",
+    "ahooks": "^3.7.0",
     "docsify-cli": "^4.4.4",
     "esbuild": "^0.15.3",
     "husky": "^8.0.1",
     "prettier": "^2.7.1",
+    "react-dom": "^18.2.0",
+    "rxjs": "^7.5.6",
     "size-limit": "^7.0.8",
     "tsdx": "^0.14.1",
     "tslib": "^2.4.0",
@@ -90,9 +96,13 @@
     "use-sync-external-store": "^1.2.0"
   },
   "peerDependencies": {
+    "ahooks": ">=3",
     "rxjs": ">=6"
   },
   "peerDependenciesMeta": {
+    "ahooks": {
+      "optional": true
+    },
     "rxjs": {
       "optional": true
     }
