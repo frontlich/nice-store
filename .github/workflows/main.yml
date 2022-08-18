@@ -19,11 +19,14 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      - name: Install deps and build (with cache)
+      - name: Install pnpm
         uses: pnpm/action-setup@v2.2.2
-        run: pnpm install
         with:
           version: 7
+          run_install: false
+        
+      - name: Install dep
+        run: pnpm install
 
       - name: Lint
         run: npm run lint
