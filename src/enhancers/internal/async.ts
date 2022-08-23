@@ -45,23 +45,23 @@ export const async =
 
     let id = 0;
 
-    const runAsync = async (p: Params) => {
+    const runAsync = (p: Params) => {
       id++;
       const curId = id;
 
-      const res = await asyncFn(p, store);
-
-      if (type === 'takeLatest') {
-        if (curId === id) {
-          store.setState(res);
+      return asyncFn(p, store).then((res) => {
+        if (type === 'takeLatest') {
+          if (curId === id) {
+            store.setState(res);
+          } else {
+            return Promise.reject(overdueError);
+          }
         } else {
-          return Promise.reject(overdueError);
+          store.setState(res);
         }
-      } else {
-        store.setState(res);
-      }
 
-      return res;
+        return res;
+      });
     };
 
     return {

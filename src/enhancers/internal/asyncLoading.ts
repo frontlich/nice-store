@@ -29,17 +29,15 @@ export const asyncLoading =
 
     let id = 0;
 
-    const runAsync = async (p: unknown) => {
+    const runAsync = (p: unknown) => {
       id++;
       const curId = id;
 
       setLoading(curId, true);
 
-      try {
-        return await store.runAsync(p);
-      } finally {
+      return store.runAsync(p).finally(() => {
         setLoading(curId, false);
-      }
+      });
     };
 
     const useLoading = (type: AsyncType = 'takeLatest') => {
