@@ -9,5 +9,5 @@
   "[typescript]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
-  "cSpell.words": ["antd", "Sider"]
+  "cSpell.words": ["antd", "Popconfirm", "Sider"]
 }

@@ -41,18 +41,18 @@ export const asyncLoading =
     };
 
     const useLoading = (type: AsyncType = 'takeLatest') => {
-      const loadingMap = useSelector();
-
-      if (type === 'takeLatest') {
-        return !!loadingMap[id];
-      }
-
-      for (const key in loadingMap) {
-        if (loadingMap[key]) {
-          return true;
+      return useSelector((loadingMap) => {
+        if (type === 'takeLatest') {
+          return !!loadingMap[id];
         }
-      }
-      return false;
+
+        for (const key in loadingMap) {
+          if (loadingMap[key]) {
+            return true;
+          }
+        }
+        return false;
+      });
     };
 
     return {

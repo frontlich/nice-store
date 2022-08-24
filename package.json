@@ -1,7 +1,7 @@
 {
   "name": "nice-store",
   "description": "lite & flexible & extensible state management for react",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "frontlich",
   "keywords": [
     "state management",
