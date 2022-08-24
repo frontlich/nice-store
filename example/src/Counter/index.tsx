@@ -7,10 +7,10 @@ import {
   Popconfirm,
   Space,
   Spin,
-} from 'antd';
-import { memo, useCallback } from 'react';
+} from "antd";
+import { memo, useCallback } from "react";
 
-import { ActionType, store } from './store';
+import { ActionType, store } from "./store";
 
 const addCount = () => store.dispatch({ type: ActionType.ADD });
 const reduceCount = () => store.dispatch({ type: ActionType.REDUCE });
@@ -21,7 +21,7 @@ export default memo(() => {
   const [form] = Form.useForm();
 
   const handleConfirm = useCallback(() => {
-    store.runAsync(form.getFieldValue('count'));
+    store.runAsync(form.getFieldValue("count"));
   }, [form]);
 
   return (
@@ -52,6 +52,12 @@ export default memo(() => {
         >
           <Button type="primary">async set</Button>
         </Popconfirm>
+        <Button type="primary" onClick={store.runTask}>
+          run task
+        </Button>
+        <Button type="primary" onClick={store.cancelTask}>
+          cancel task
+        </Button>
       </Space>
     </Card>
   );

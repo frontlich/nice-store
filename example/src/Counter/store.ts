@@ -1,4 +1,4 @@
-import create, { async, asyncLoading, reducer, reset } from 'nice-store';
+import create, { async, asyncLoading, reducer, reset, task } from 'nice-store';
 
 export enum ActionType {
   ADD,
@@ -33,5 +33,12 @@ export const store = create(
         }, 1000);
       })
   ),
-  asyncLoading()
+  asyncLoading(),
+  task((store) => {
+    const timer = setInterval(() => {
+      store.dispatch({type: ActionType.ADD});
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, false)
 );
