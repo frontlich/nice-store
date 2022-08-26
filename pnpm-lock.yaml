@@ -16,6 +16,7 @@ specifiers:
   eslint-plugin-import: ^2.26.0
   eslint-plugin-prettier: ^4.2.1
   husky: ^8.0.1
+  immer: ^9.0.15
   lint-staged: ^13.0.3
   prettier: ^2.7.1
   react: '>=16.8'
@@ -47,6 +48,7 @@ devDependencies:
   eslint-plugin-import: 2.26.0_3bh5nkk7utn7e74vrwtv6rxmt4
   eslint-plugin-prettier: 4.2.1_2xd4q2tc5cqa5as7uugqhp6oue
   husky: 8.0.1
+  immer: 9.0.15
   lint-staged: 13.0.3
   prettier: 2.7.1
   react-dom: 18.2.0_react@18.2.0
@@ -5207,6 +5209,10 @@ packages:
   /ignore/5.2.0:
     resolution: {integrity: sha512-CmxgYGiEPCLhfLnpPp1MoRmifwEIOgjcHXxOBjv7mY96c+eWScsOP9c112ZyLdWHi0FxHjI+4uVhKYp/gcdRmQ==}
     engines: {node: '>= 4'}
+    dev: true
+
+  /immer/9.0.15:
+    resolution: {integrity: sha512-2eB/sswms9AEUSkOm4SbV5Y7Vmt/bKRwByd52jfLkW4OLYeaTP3EEiJ9agqU0O/tq6Dk62Zfj+TJSqfm1rLVGQ==}
     dev: true
 
   /import-fresh/3.3.0:

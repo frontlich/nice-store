@@ -44,7 +44,7 @@ internal enhancers:
 - [reducer(reducerFn)](https://frontlich.github.io/nice-store/#/zh-cn/internal-enhancer?id=reducer)
 - [reset()](https://frontlich.github.io/nice-store/#/zh-cn/internal-enhancer?id=reset)
 - [selectorHook()](https://frontlich.github.io/nice-store/#/zh-cn/internal-enhancer?id=selectorhook)
-- task(taskFn)
+- [task(taskFn)](https://frontlich.github.io/nice-store/#/zh-cn/internal-enhancer?id=task)
 - [thunk(thunkFn)](https://frontlich.github.io/nice-store/#/zh-cn/internal-enhancer?id=thunk)
 
 other enhancers:

@@ -22,7 +22,9 @@ nice-store 与 redux 的区别
 - nice-store 的 store 个数可以根据需要创建多个，每个 store 都可以使用不同的[增强器](/zh-cn/enhancer)，而 redux 全局只有一个唯一的 store。
 - nice-store 可以不使用 Provider、Context，也不用写 dispatch、action、reducer 等样板代码。
 
-|            | nice-store | redux                                   |
-| ---------- | ---------- | --------------------------------------- |
-| size       | 2.9k       | redux 2.7k + react-redux 5.8k 至少 8.5k |
-| store 个数 | 多个       | 一个                                    |
+|              | nice-store | redux                        | zustand |
+| ------------ | ---------- | ---------------------------- | ------- |
+| size         | 4k         | redux(4k) + react-redux(15k) | 4k      |
+| store 个数   | 多个       | 一个                         | 多个    |
+| 样板代码     | 少         | 多                           | 少      |
+| 需要 context | no         | yes                          | no      |

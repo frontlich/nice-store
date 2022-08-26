@@ -88,6 +88,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.1",
+    "immer": "^9.0.15",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "react-dom": "^18.2.0",
@@ -103,13 +104,17 @@
   },
   "peerDependencies": {
     "ahooks": ">=3",
-    "rxjs": ">=6"
+    "rxjs": ">=6",
+    "immer": ">=9"
   },
   "peerDependenciesMeta": {
     "ahooks": {
       "optional": true
     },
     "rxjs": {
+      "optional": true
+    },
+    "immer": {
       "optional": true
     }
   },
