@@ -104,9 +104,9 @@ export function pipe(...fns: Array<UnaryFunction<any, any>>): UnaryFunction<any,
 }
 
 /** @internal */
-export function pipeFromArray<T, R>(fns: Array<UnaryFunction<T, R>>): UnaryFunction<T, R> {
-  return function piped(input: T): R {
-    return fns.reduce((prev: any, fn: UnaryFunction<T, R>) => fn(prev), input as any);
+export function pipeFromArray(fns: Array<UnaryFunction<any, any>>): UnaryFunction<any, any> {
+  return function piped(input: any) {
+    return fns.reduce((prev, fn) => fn(prev), input);
   };
 }
 
