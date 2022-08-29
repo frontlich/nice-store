@@ -28,3 +28,7 @@ export type NextEnhancer<S, Ext1, Ext2 = Ext1> = (
 ) => CreateStore<S, Ext1 & Ext2>;
 
 export type Selector<State, Slice> = (state: State) => Slice;
+
+export interface UnaryFunction<T, R> {
+  (source: T): R;
+}

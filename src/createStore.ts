@@ -123,6 +123,7 @@ export function createStore<
   enhancer7: NextEnhancer<State, Ext1 & Ext2 & Ext3 & Ext4 & Ext5 & Ext6, Ext7>,
   enhancer8: NextEnhancer<State, Ext1 & Ext2 & Ext3 & Ext4 & Ext5 & Ext6 & Ext7, Ext8>,
   enhancer9: NextEnhancer<State, Ext1 & Ext2 & Ext3 & Ext4 & Ext5 & Ext6 & Ext7 & Ext8, Ext9>,
+  ...enhancers: NextEnhancer<State, any>[]
 ): EnhancedStore<State, Ext1 & Ext2 & Ext3 & Ext4 & Ext5 & Ext6 & Ext7 & Ext8 & Ext9>;
 
 export function createStore<State>(initialState?: State, ...enhancers: Enhancer<State, any>[]) {

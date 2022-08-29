@@ -104,6 +104,31 @@ export function create<
   enhancer8: NextEnhancer<State, Ext1 & Ext2 & Ext3 & Ext4 & Ext5 & Ext6 & Ext7, Ext8>,
 ): Result<State, Ext1 & Ext2 & Ext3 & Ext4 & Ext5 & Ext6 & Ext7 & Ext8>;
 
+export function create<
+  State,
+  Ext1 = {},
+  Ext2 = {},
+  Ext3 = {},
+  Ext4 = {},
+  Ext5 = {},
+  Ext6 = {},
+  Ext7 = {},
+  Ext8 = {},
+  Ext9 = {},
+>(
+  initialState: State,
+  enhancer1: Enhancer<State, Ext1>,
+  enhancer2: NextEnhancer<State, Ext1, Ext2>,
+  enhancer3: NextEnhancer<State, Ext1 & Ext2, Ext3>,
+  enhancer4: NextEnhancer<State, Ext1 & Ext2 & Ext3, Ext4>,
+  enhancer5: NextEnhancer<State, Ext1 & Ext2 & Ext3 & Ext4, Ext5>,
+  enhancer6: NextEnhancer<State, Ext1 & Ext2 & Ext3 & Ext4 & Ext5, Ext6>,
+  enhancer7: NextEnhancer<State, Ext1 & Ext2 & Ext3 & Ext4 & Ext5 & Ext6, Ext7>,
+  enhancer8: NextEnhancer<State, Ext1 & Ext2 & Ext3 & Ext4 & Ext5 & Ext6 & Ext7, Ext8>,
+  enhancer9: NextEnhancer<State, Ext1 & Ext2 & Ext3 & Ext4 & Ext5 & Ext6 & Ext7 & Ext8, Ext9>,
+  ...enhancers: NextEnhancer<State, any>[]
+): Result<State, Ext1 & Ext2 & Ext3 & Ext4 & Ext5 & Ext6 & Ext7 & Ext8>;
+
 export function create<State>(initialState?: State, ...enhancers: Enhancer<State, any>[]) {
   const store = (createStore as any)(initialState, ...enhancers, selectorHook());
 

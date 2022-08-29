@@ -40,6 +40,25 @@ export function rx<State, PreExt, T1, T2, T3, T4, T5>(
   operator5: OperatorFunction<T5, State>,
 ): NextEnhancer<State, PreExt, Ext<T1>>;
 
+export function rx<State, PreExt, T1, T2, T3, T4, T5, T6>(
+  operator1: OperatorFunction<T1, T2>,
+  operator2: OperatorFunction<T2, T3>,
+  operator3: OperatorFunction<T3, T4>,
+  operator4: OperatorFunction<T4, T5>,
+  operator5: OperatorFunction<T5, T6>,
+  operator6: OperatorFunction<T6, State>,
+): NextEnhancer<State, PreExt, Ext<T1>>;
+
+export function rx<State, PreExt, T1, T2, T3, T4, T5, T6, T7>(
+  operator1: OperatorFunction<T1, T2>,
+  operator2: OperatorFunction<T2, T3>,
+  operator3: OperatorFunction<T3, T4>,
+  operator4: OperatorFunction<T4, T5>,
+  operator5: OperatorFunction<T5, T6>,
+  operator6: OperatorFunction<T6, T7>,
+  operator7: OperatorFunction<T7, State>,
+): NextEnhancer<State, PreExt, Ext<T1>>;
+
 export function rx<State, PreExt, Next>(
   ...operators: any[]
 ): NextEnhancer<State, PreExt, Ext<Next>> {

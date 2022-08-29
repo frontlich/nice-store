@@ -49,5 +49,6 @@ internal enhancers:
 
 other enhancers:
 
-- requestCache()
-- rx(...operators)
+- [immer()](https://frontlich.github.io/nice-store/#/zh-cn/internal-enhancer?id=immer)
+- [requestCache()](https://frontlich.github.io/nice-store/#/zh-cn/internal-enhancer?id=requestCache)
+- [rx(...operators)](https://frontlich.github.io/nice-store/#/zh-cn/internal-enhancer?id=rx)

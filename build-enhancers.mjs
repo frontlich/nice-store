@@ -25,7 +25,7 @@ async function build() {
         write: true,
         bundle: true,
         treeShaking: true,
-        external: ['rxjs'],
+        external: ['rxjs', 'immer'],
         define: {
           'process.env.NODE_ENV': 'process.env.NODE_ENV',
         },

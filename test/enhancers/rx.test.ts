@@ -1,4 +1,4 @@
-import { map, scan } from 'rxjs';
+import { map, scan } from 'rxjs/operators';
 
 import { createStore } from '../../src/createStore';
 import { rx } from '../../src/enhancers/rx';

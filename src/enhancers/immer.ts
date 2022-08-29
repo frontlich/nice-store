@@ -17,9 +17,7 @@ export function immer<State, PreExt>(): NextEnhancer<State, PreExt, Ext<State>> 
 
     return {
       ...store,
-      produce: (recipe) => {
-        store.setState((state) => immerProduce(state, (draft) => void recipe(draft)));
-      },
+      produce: (recipe) => store.setState(immerProduce(recipe)),
     };
   };
 }
