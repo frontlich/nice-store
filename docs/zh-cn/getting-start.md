@@ -76,7 +76,7 @@ export const store = createStore({ count: 0 }, selectorHook());
 // or
 
 // create 内置了 selectorHook 增强器
-export const store = create({ count: 0 }, reset());
+export const store = create({ count: 0 });
 ```
 
 事实上，`create` 函数是内置了 selectorHook 增强器的一个函数。

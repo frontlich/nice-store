@@ -15,7 +15,7 @@ async 增强器可以用来处理异步的状态更新，它会给 store 增加�
 用法
 
 ```js
-import { createStore, async } from "nice-store";
+import { createStore, async } from 'nice-store';
 
 const store = createStore(
   0,
@@ -46,7 +46,7 @@ asyncLoading 增强器用于获取 async 增强器的 asyncFn 的 loading 状态
 用法
 
 ```js
-import { createStore, async, asyncLoading } from "nice-store";
+import { createStore, async, asyncLoading } from 'nice-store';
 
 const store = createStore(
   0,
@@ -80,9 +80,9 @@ connect 增强器用于连接其它的 store，获得其它 store 状态及订�
 用法
 
 ```js
-import { createStore, connect } from "nice-store";
+import { createStore, connect } from 'nice-store';
 
-const store1 = createStore({ name: "Tom" });
+const store1 = createStore({ name: 'Tom' });
 
 const store2 = createStore({ age: 18 });
 
@@ -98,7 +98,7 @@ const store = createStore(
 store.subscribe(console.log);
 
 // 更新state
-store1.setState({ name: "Jarry" });
+store1.setState({ name: 'Jarry' });
 store2.setState({ age: 12 });
 store.setState({ count: 1 });
 ```
@@ -149,7 +149,7 @@ reset 增强器会给 store 增加一个 resetState 方法，调用 resetState �
 用法
 
 ```js
-import { createStore, reset } from "nice-store";
+import { createStore, reset } from 'nice-store';
 
 // 创建store的时候，使用 reset 函数增强store，得到的 store 会自动添加 resetState 方法
 const store = createStore({ count: 0 }, reset());
@@ -173,7 +173,7 @@ selectorHook 增强器会给 store 增加一个 useSelector hook，使用该 hoo
 用法
 
 ```js
-import { createStore, selectorHook } from "nice-store";
+import { createStore, selectorHook } from 'nice-store';
 
 // 创建一个使用 selectorHook 增强的 store
 const store = createStore({ count: 0 }, selectorHook());
@@ -213,7 +213,7 @@ task 增强器可以用来执行一些特定任务，比如倒计时之类的自
 用法
 
 ```js
-import { createStore, task } from "nice-store";
+import { createStore, task } from 'nice-store';
 
 const store = createStore(
   0,
@@ -240,7 +240,7 @@ thunk 增强器可以用来处理异步的状态更新，它会给 store 增加�
 用法
 
 ```js
-import create, { thunk } from "nice-store";
+import create, { thunk } from 'nice-store';
 
 const countStore = create({ count: 0 }, thunk());
 
@@ -260,75 +260,4 @@ const Counter = () => {
     </div>
   );
 };
-```
-
-# 可选的增强器
-
-## immer
-
-`immer()`
-
-immer 增强器可以更方便地更新 state，它会给 store 增加一个 produce 方法，可以通过直接修改值来更新数据
-
-用法
-
-```js
-import { createStore } from "nice-store";
-import { immer } from "nice-store/enhancers";
-
-const store = createStore({ a: 1, b: 2 }, immer());
-
-// 订阅state更新事件
-store.subscribe(console.log);
-
-store.produce((s) => {
-  s.a = 3;
-});
-```
-
-## requestCache
-
-`requestCache()`
-
-requestCache 增强器会给 store 添加一个 withCache 方法，调用 withCache 会返回一个 options 对象，在 ahooks 的 useRequest 配置项中使用该对象，可以将请求的数据缓存到 store 中
-
-用法
-
-```js
-import { createStore } from "nice-store";
-import { requestCache } from "nice-store/enhancers";
-import { useRequest } from "ahooks";
-
-const store = createStore(0, requestCache());
-
-// 订阅state更新事件
-store.subscribe(console.log);
-
-useRequest(() => Promise.resolve(1), store.withCache());
-```
-
-## rx
-
-`rx(...operators)`
-
-rx 增强器会给 store 添加 next 方法，调用 next 方法会走所有的 rxjs 的操作符，最终更新 store 的状态
-
-```js
-import { createStore } from "nice-store";
-import { rx } from "nice-store/enhancers";
-import { map, scan } from "rxjs/operators";
-
-const store = createStore(
-  0,
-  rx(
-    map((v: string) => Number(v)),
-    scan((acc, v) => acc + v)
-  )
-);
-
-// 订阅state更新事件
-store.subscribe(console.log);
-
-store.next("1"); // log 1
-store.next("2"); // log 3
 ```

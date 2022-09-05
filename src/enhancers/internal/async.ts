@@ -30,7 +30,7 @@ export const setOverdueError = (error: unknown) => {
  * store.runAsync(2); // after 1s store state is 3
  */
 export const async =
-  <State, PreExt, Params>(
+  <State, PreExt, Params = void>(
     asyncFn: (params: Params, store: EnhancedStore<State, PreExt>) => Promise<State>,
     type: AsyncType = 'takeLatest',
     overdueError: unknown = defaultOverdueError,
