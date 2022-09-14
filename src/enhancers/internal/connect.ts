@@ -61,35 +61,38 @@ export function connect<State, PreExt>(...args: any[]): NextEnhancer<State, PreE
   return (createStore) => (initialState) => {
     const store = createStore(initialState);
     let isFrozen = false;
-    let currentState = store.getState();
 
     if (process.env.NODE_ENV !== 'production' && typeof store.getState() !== 'object') {
       console.warn('external store state will cover current state which is not object');
     }
 
-    // 获取外部store的状态
-    const getExternalState = () => {
+    const getAllState = (state?: State) => {
+      // 获取外部store的状态
       const externalStates = externalStores.map((store) => store.getState());
-      return combine(...externalStates);
+      return {
+        ...(state || store.getState()),
+        ...combine(...externalStates),
+      };
     };
 
+    let allState = getAllState();
+
     // 获取所有store的状态
-    const getState = () => {
-      if (isFrozen) return currentState;
-      return (currentState = { ...store.getState(), ...getExternalState() });
-    };
+    const getState = () => allState;
 
     // 设置当前store的状态，并同步外部store的状态
     const setState: SetState<State> = (update) => {
       if (isFrozen) return;
-      const curState = isFunction(update) ? update(store.getState()) : update;
-      store.setState({ ...curState, ...getExternalState() });
+      const curState = isFunction(update) ? update(allState) : update;
+      allState = getAllState(curState);
+      store.setState(allState);
     };
 
     // 外部store的状态更新时，同步到当前store
     const unSubs = externalStores.map((externalStore) =>
       externalStore.subscribe(() => {
-        store.setState(getState);
+        allState = getAllState();
+        store.setState(allState);
       }),
     );
 
