@@ -30,15 +30,20 @@ async function build() {
           'process.env.NODE_ENV': 'process.env.NODE_ENV',
         },
       }),
-      esbuild.build({
-        entryPoints: [path.resolve(enhancersDir, 'index.ts')],
-        entryNames: `[dir]/[name].${format}`,
-        format,
-        outdir: path.resolve('dist', 'enhancers'),
-        write: true,
-        bundle: false,
-        treeShaking: true,
-      }),
+      esbuild
+        .transform(
+          enhancerPathList
+            .map((path) => {
+              const arr = path.split('/');
+              return arr[arr.length - 1].slice(0, -3);
+            })
+            .map((fileName) => `export { ${fileName} } from './${fileName}.${format}';`)
+            .join(''),
+          { format },
+        )
+        .then((result) => {
+          return fs.writeFile(path.resolve('dist', 'enhancers', `index.${format}.js`), result.code);
+        }),
     ]);
   };
 
@@ -61,7 +66,7 @@ async function build() {
       {
         name: 'nice-store/enhancers',
         types: '../dist/enhancers/index.d.ts',
-        main: '../dist/enhancers/index.js',
+        main: '../dist/enhancers/index.cjs.js',
         module: '../dist/enhancers/index.esm.js',
         sideEffects: false,
       },
